@@ -1,0 +1,59 @@
+<div class="container py-5">
+  <!-- Page Title -->
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-success">
+      <i class="bi bi-box-seam me-2"></i> Product List
+    </h2>
+    <p class="text-muted">Manage your product inventory efficiently.</p>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="text-center my-5">
+    <div class="spinner-grow text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3 text-secondary">Fetching products, please wait...</p>
+  </div>
+
+  <!-- Product Table -->
+  <div class="table-responsive" *ngIf="!isLoading && (products?.length || 0) > 0">
+    <table class="table table-bordered table-striped shadow-sm">
+      <thead class="table-success">
+      <tr>
+        <th class="text-center">ID</th>
+        <th>Name</th>
+        <th class="text-end">Price</th>
+        <th class="text-center">Quantity</th>
+        <th class="text-center">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of products; let i = index">
+        <td class="text-center">{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td class="text-end">{{ product.price | currency }}</td>
+        <td class="text-center">
+            <span [ngClass]="getQuantityBadgeClass(product.quantity)">
+              {{ product.quantity }}
+            </span>
+        </td>
+        <td class="text-center">
+
+          <button class="btn btn-sm btn-outline-warning me-1" (click)="editProduct(product.id)">
+           Edit
+          </button>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteProduct(product.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- No Products Found -->
+  <div *ngIf="!isLoading && products?.length === 0" class="text-center my-5">
+    <i class="bi bi-box2-open display-4 text-muted"></i>
+    <p class="mt-3 text-muted">No products available in the inventory.</p>
+  </div>
+</div>

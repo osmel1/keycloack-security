@@ -1,0 +1,59 @@
+<div class="container py-5">
+  <!-- Page Title -->
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-success">
+      <i class="bi bi-list-check me-2"></i> Orders List
+    </h2>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="text-center my-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3 text-secondary">Fetching orders, please wait...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center my-4">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ errorMessage }}
+  </div>
+
+  <!-- Orders Table -->
+  <div *ngIf="!isLoading && !errorMessage && orders.length > 0">
+    <table class="table table-bordered table-striped table-hover shadow-sm">
+      <thead class="table-primary">
+      <tr>
+        <th class="text-center"># Order ID</th>
+        <th>Date</th>
+        <th>State</th>
+        <th>Items Count</th>
+        <th class="text-center">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let order of orders; let i = index">
+        <td class="text-center">{{ order.id }}</td>
+        <td>{{ order.date | date: 'short' }}</td>
+        <td>
+            <span class="badge" [ngClass]="getOrderStateClass(order.state)">
+              {{ order.state }}
+            </span>
+        </td>
+        <td class="text-center">{{ order.productItems?.length || 0 }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-outline-primary" (click)="viewOrderDetails(order.id)">
+            <i class="bi bi-eye me-1"></i> View
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- No Orders Found -->
+  <div *ngIf="!isLoading && !errorMessage && orders.length === 0" class="text-center my-5">
+    <i class="bi bi-emoji-frown display-4 text-muted"></i>
+    <p class="mt-3 text-muted">No orders available at the moment.</p>
+  </div>
+</div>

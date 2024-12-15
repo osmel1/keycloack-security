@@ -1,0 +1,17 @@
+.badge {
+  font-size: 0.85rem;
+  padding: 0.4em 0.6em;
+}
+
+.badge-info {
+  background-color: #0dcaf0;
+  color: #fff;
+}
+
+.badge-success {
+  background-color: #198754;
+}
+
+.badge-danger {
+  background-color: #dc3545;
+}

@@ -1,0 +1,9 @@
+.nav-bar-item{
+  font-weight: bold;
+  color: white;
+}
+.profile{
+  border:1px solid white;
+  padding:0.4rem;
+  border-radius:0.6rem ;
+}
